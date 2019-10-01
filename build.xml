@@ -1,0 +1,35 @@
+<project name="CORSEAUX_LAMBERT--DELAVAQUERIE_Rotofight" basedir=".">
+
+    <property name="src.rotofight" value="src/fr/umlv/rotofight"/>
+    <property name="src.rotofight.Main" value="src/fr/umlv/rotofight/Main"/>
+    <property name="classes.rotofight" value="classes/fr/umlv/rotofight"/>
+    <property name="classes.rotofight.Main" value="classes/fr/umlv/rotofight/Main"/>
+    <property name="lib.zen5" value="lib/fr/umlv/zen5/zen5.jar"/>
+
+    <target name="javadoc">
+        <javadoc sourcepath="src" destdir="docs/doc" classpath="${lib.zen5}"/>
+    </target>
+
+    <target name="clean">
+        <delete includeemptydirs="true">
+            <fileset dir="classes" includes="**/*"/>
+        </delete>
+        <delete file="rotofight.jar"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.rotofight.Main}"/>
+        <javac srcdir="src" destdir="classes" classpath="${lib.zen5}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="rotofight.jar">
+            <fileset dir="classes"/>
+            <zipfileset includes="**/*.class" src="lib/fr/umlv/zen5/zen5.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="fr.umlv.rotofight.Main.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
